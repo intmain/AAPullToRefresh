@@ -143,8 +143,8 @@
     //init background layer
     AAPullToRefreshBackgroundLayer *backgroundLayer = [[AAPullToRefreshBackgroundLayer alloc] initWithBorderWidth:self.borderWidth];
     backgroundLayer.frame = self.bounds;
-    [self.layer addSublayer:backgroundLayer];
-    self.backgroundLayer = backgroundLayer;
+    //[self.layer addSublayer:backgroundLayer];
+    //self.backgroundLayer = backgroundLayer;
     
     if (!self.imageIcon)
         self.imageIcon = [UIImage imageNamed:@"centerIcon"];
