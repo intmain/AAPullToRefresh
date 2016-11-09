@@ -199,7 +199,7 @@
     } else {
         //CGFloat overBottomOffsetY = self.scrollView.contentOffset.y - self.scrollView.contentSize.height + self.scrollView.frame.size.height;
         //currentInsets.bottom = MIN(overBottomOffsetY, self.originalInsetBottom + self.bounds.size.height + 40.0);
-        currentInsets.bottom = MIN(self.threshold, self.originalInsetBottom + self.bounds.size.height + 40.0f);
+        currentInsets.bottom = MAX(self.threshold, self.originalInsetBottom + self.bounds.size.height + 40.0f);
     }
     [self setScrollViewContentInset:currentInsets handler:handler];
 }
@@ -348,11 +348,11 @@
             centerY = (yOffset + self.originalInsetTop) / 2.0f;
             break;
         case AAPullToRefreshPositionBottom:
-            self.progress = overBottomOffsetY / self.threshold;
+            self.progress = (overBottomOffsetY - self.originalInsetBottom)/ self.threshold;
             centerX = self.scrollView.center.x + xOffset;
-            centerY = self.scrollView.frame.size.height + self.frame.size.height / 2.0f + yOffset;
+            centerY = self.scrollView.frame.size.height + (self.threshold / 2)+ yOffset ;
             if (overBottomOffsetY >= 0.0f) {
-                centerY -= overBottomOffsetY / 1.5f;
+                centerY = centerY - overBottomOffsetY;
             }
             break;
         case AAPullToRefreshPositionLeft:
