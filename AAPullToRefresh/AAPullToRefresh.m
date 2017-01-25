@@ -201,7 +201,7 @@
         //currentInsets.bottom = MIN(overBottomOffsetY, self.originalInsetBottom + self.bounds.size.height + 40.0);
         currentInsets.bottom = MAX(self.threshold, self.originalInsetBottom + self.bounds.size.height + 40.0f);
     }
-    [self setScrollViewContentInset:currentInsets handler:handler];
+    [self setScrollViewContentInset:currentInsets handler:handler animated:false];
 }
 
 - (void)resetScrollViewContentInset:(actionHandler)handler
@@ -212,23 +212,30 @@
     } else {
         currentInsets.bottom = self.originalInsetBottom;
     }
-    [self setScrollViewContentInset:currentInsets handler:handler];
+    [self setScrollViewContentInset:currentInsets handler:handler animated:true];
 }
 
-- (void)setScrollViewContentInset:(UIEdgeInsets)contentInset handler:(actionHandler)handler
+- (void)setScrollViewContentInset:(UIEdgeInsets)contentInset handler:(actionHandler)handler animated:(BOOL)animated
 {
-    [UIView animateWithDuration:0.3f
-                          delay:0
-                        options:UIViewAnimationOptionAllowUserInteraction |
-     UIViewAnimationOptionCurveEaseOut |
-     UIViewAnimationOptionBeginFromCurrentState
-                     animations:^{
-                         self.scrollView.contentInset = contentInset;
-                     }
-                     completion:^(BOOL finished) {
-                         if (handler)
-                             handler();
-                     }];
+    if( animated ){
+        [UIView animateWithDuration:0.3f
+                              delay:0
+                            options:UIViewAnimationOptionAllowUserInteraction |
+         UIViewAnimationOptionCurveEaseOut |
+         UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             self.scrollView.contentInset = contentInset;
+                         }
+                         completion:^(BOOL finished) {
+                             if (handler)
+                                 handler();
+                         }];
+        
+    }else {
+        self.scrollView.contentInset = contentInset;
+        if (handler)
+            handler();
+    }
 }
 
 #pragma mark - property
