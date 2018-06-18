@@ -201,7 +201,7 @@
         //currentInsets.bottom = MIN(overBottomOffsetY, self.originalInsetBottom + self.bounds.size.height + 40.0);
         currentInsets.bottom = MAX(self.threshold, self.originalInsetBottom + self.bounds.size.height + 40.0f);
     }
-    [self setScrollViewContentInset:currentInsets handler:handler animated:false];
+    [self setScrollViewContentInset:currentInsets handler:handler animated:true];
 }
 
 - (void)resetScrollViewContentInset:(actionHandler)handler
